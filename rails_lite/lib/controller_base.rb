@@ -44,9 +44,10 @@ class ControllerBase
   #Use File.read
   #Set a variable to what we get 
   def render(template_name)
-    file_path = File.join(".", "..", "views", self.class.name.underscore,  "#{template_name}.html.erb")
+    dir_path = File.dirname(__FILE__)
+    file_path = File.join(dir_path, "..", "views", self.class.name.underscore,  "#{template_name}.html.erb")
     x = File.read(file_path)
-    byebug
+    self.render_content(ERB.new(x).result(binding), 'text/html')
   end
 
   # method exposing a `Session` object
