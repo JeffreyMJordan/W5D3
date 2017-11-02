@@ -8,9 +8,10 @@ class ControllerBase
   attr_reader :req, :res, :params, :already_built_response
 
   # Setup the controller
-  def initialize(req, res)
+  def initialize(req, res, route_params={})
     @res = res 
     @req = req
+    @params = route_params.merge(req.params)
     @session = Session.new(@req)
     @already_built_response = false
   end
